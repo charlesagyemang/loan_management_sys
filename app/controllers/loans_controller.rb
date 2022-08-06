@@ -31,10 +31,10 @@ class LoansController < ApplicationController
   def create
     @loan = Loan.new(loan_params)
 
-    # SendSmsJob.perform_later(@loan.loaner.phone_number, "You have a new loan of #{@loan.principal}")
 
     respond_to do |format|
       if @loan.save
+        NewLoanAlertJob.perform_later(@loan)
         format.html do
           redirect_to "/loans/#{@loan.id}?loaner=#{@loan.loaner_id}", notice: "Loan was successfully created."
         end
@@ -67,6 +67,13 @@ class LoansController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def new_loan_alert
+    loan = Loan.find(params[:loan_id])
+    NewLoanAlertJob.perform_later(loan)
+    redirect_to "/loans/new?loaner=#{loan.loaner.id}", notice: '                                         *********************************************        Message Resent successfully'
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

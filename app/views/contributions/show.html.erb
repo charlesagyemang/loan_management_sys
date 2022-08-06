@@ -2,7 +2,7 @@
 
 <p>
   <strong>References:</strong>
-  <%= @contribution.references %>
+  <%= @contribution.investor.first_name %>
 </p>
 
 <p>
@@ -28,6 +28,11 @@
 <p>
   <strong>Amount:</strong>
   <%= @contribution.amount %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @contribution.payouts.count %>
 </p>
 
 <%= link_to 'Edit', edit_contribution_path(@contribution) %> |

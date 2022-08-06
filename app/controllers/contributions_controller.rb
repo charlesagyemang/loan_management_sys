@@ -61,7 +61,7 @@ class ContributionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contribution
-      @contribution = Contribution.find(params[:id])
+      @contribution = Contribution.includes(:payouts).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

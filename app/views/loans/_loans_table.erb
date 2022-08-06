@@ -18,6 +18,7 @@
         <th>Amount + Int</th>
         <th>Details</th>
         <th>Payments</th>
+        <th>Resend Sms</th>
         <th></th>
       </tr>
     </thead>
@@ -31,6 +32,7 @@
           <td><%= loan.amount %></td>
           <td><%= loan.details %></td>
           <td><a href=<%= "/loan_payments/new?loan=#{loan.id}&loaner=#{loan.loaner_id}"%> class="btn btn-success btn-sm text-white">Add/View Loan Payments</a></td>
+          <td><a href=<%= "/loans/new_loan_alert?loan_id=#{loan.id}"%> class="btn btn-primary btn-sm text-white">Resend Loan Sms</a></td>
           <td>
             <%= link_to 'Show', loan %>
             <%= link_to 'Edit', edit_loan_path(loan) %>

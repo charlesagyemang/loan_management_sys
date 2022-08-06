@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'cockpit/admin'
   get 'cockpit/user'
+  get 'loans/new_loan_alert'
   resources :loan_payments
   resources :loans
   resources :loaners
