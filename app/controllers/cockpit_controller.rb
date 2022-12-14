@@ -17,6 +17,8 @@ class CockpitController < ApplicationController
     @loan_payment_amount = LoanPayment.sum(:amount)
     @profit = Loan.all.map { |l| l.profit.to_i }.reduce(0, :+)
     @retained_profit = @profit - @contributions_profit
+    @contributions_paid = Payout.sum(:amount)
+    @contributions_not_paid = @contributions_amount - @contributions_paid
   end
 
   def user
