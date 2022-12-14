@@ -39,7 +39,7 @@ class LoanPaymentsController < ApplicationController
     @loan_payment = LoanPayment.new(loan_payment_params)
     respond_to do |format|
       if @loan_payment.save
-        SendSmsJob.perform_later(@loan_payment) if ensure_status_is_received
+        SendSmsJob.perform_later(@loan_payment) if ensure_status_is_received && Rails.env.production?
         format.html do
           redirect_to "/loan_payments/#{@loan_payment.id}?loan=#{@loan_payment.loan_id}&loaner=#{@loan_payment.loaner_id}", notice: "Loan payment was successfully created."
         end
@@ -93,3 +93,4 @@ class LoanPaymentsController < ApplicationController
     end
     
 end
+# heroku addons:create heroku-postgresql:mini --app benjicap --fork postgres://asnnglbqhjeqdi:69e1bfc472b4667df33d29c237678714ed4a7f90d8ea4382c170e44cc611b032@ec2-52-5-110-35.compute-1.amazonaws.com:5432/d140skju2d25to

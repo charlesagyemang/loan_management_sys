@@ -34,7 +34,7 @@ class LoansController < ApplicationController
 
     respond_to do |format|
       if @loan.save
-        NewLoanAlertJob.perform_later(@loan)
+        NewLoanAlertJob.perform_later(@loan) if Rails.env.production?
         format.html do
           redirect_to "/loans/#{@loan.id}?loaner=#{@loan.loaner_id}", notice: "Loan was successfully created."
         end
@@ -70,7 +70,7 @@ class LoansController < ApplicationController
 
   def new_loan_alert
     loan = Loan.find(params[:loan_id])
-    NewLoanAlertJob.perform_later(loan)
+    NewLoanAlertJob.perform_later(loan) if Rails.env.production?
     redirect_to "/loans/new?loaner=#{loan.loaner.id}", notice: '                                         *********************************************        Message Resent successfully'
   end
   

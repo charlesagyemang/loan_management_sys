@@ -31,7 +31,6 @@
   </div>
 
   <div style="visibility:hidden;">
-
     <%= collection_select(:loan_payment, :loaner_id, Loaner.where(id: params["loaner"]), :id, :first_name, {:selected => loan_payment.loaner || params["loaner"]}, { class: "form-control" } ) %>
   </div>
 
