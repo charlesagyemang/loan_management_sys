@@ -51,7 +51,9 @@
         <div class="row">
           <div class="col">
             <h5 class="card-title text-uppercase text-muted mb-0">Investor Contributions</h5>
-            <span class="h2 font-weight-bold mb-0"><%=@contributions_amount %></span>
+            <span class="h2 font-weight-bold mb-0"><%=  @contributions_principal %> || <%=@contributions_amount %></span>
+           
+
           </div>
           <div class="col-auto">
             <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -60,7 +62,7 @@
           </div>
         </div>
         <p class="mt-3 mb-0 text-sm">
-          <span class="text-success mr-2"><i class="fa fa-arrow-up"></i><%=@contributions_count %></span>
+          <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> GHC <%=@contributions_profit %></span>
           <span class="text-nowrap">Since last month</span>
         </p>
       </div>
@@ -72,7 +74,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title text-uppercase text-muted mb-0">Prof</h5>
+            <h5 class="card-title text-uppercase text-muted mb-0">Profit</h5>
             <span class="h2 font-weight-bold mb-0"><%=@profit%></span>
           </div>
           <div class="col-auto">
@@ -82,8 +84,7 @@
           </div>
         </div>
         <p class="mt-3 mb-0 text-sm">
-          <span class="text-success mr-2"><i class="fa fa-arrow-up"></i><%=@investors_count %></span>
-          <span class="text-nowrap">Since last month</span>
+          <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> GHC <%=@retained_profit%></span>
         </p>
       </div>
     </div>
