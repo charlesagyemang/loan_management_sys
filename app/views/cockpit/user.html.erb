@@ -1,2 +1,59 @@
-<h1>Cockpit#user</h1>
-<p>Find me in app/views/cockpit/user.html.erb</p>
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Debtors</h1>
+
+  <br />
+
+  <input id="myInputTextFielddddd" type="text" class="form-control" placeholder="Search Debtors"><br /><br />
+
+
+
+  <table id="loans-table" class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Amount</th>
+        <th>Paid</th>
+        <th>Owing</th>
+        <th>Payments</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @loans.includes(:loaner, :loan_payments).each do |loan| %>
+       <% if loan.amount - loan&.loan_payments&.sum(:amount) > 0 %>
+            <tr>
+                <td><%= loan.loaner.full_name %></td>
+                <td><%= loan.loaner.phone_number %></td>
+                <td><%= loan.amount %></td>
+                <td><%= loan.loan_payments.sum(:amount) %></td>
+                <td><%= loan.amount - loan.loan_payments.sum(:amount) %></td>
+                <td>
+                    <a href=<%= "/loan_payments/new?loan=#{loan.id}&loaner=#{loan.loaner_id}"%> class="btn btn-success btn-sm text-white">Add/View Loan Payments</a>
+                </td>
+            </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+
+  <% content_for :page_scripts do %>
+    <script>
+      function readyy(){
+        let oTable = $('#loans-table').DataTable({ pageLength: 50}); 
+        $('#myInputTextFielddddd').keyup(function(){
+            oTable.search($(this).val()).draw() ;
+        })
+      }
+      $(document).ready(readyy)
+    </script>
+
+  <% end %>
+  </div>
+</div>

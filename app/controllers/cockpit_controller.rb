@@ -22,5 +22,6 @@ class CockpitController < ApplicationController
   end
 
   def user
+    @loans = Loan.all.includes(:loan_payments)
   end
 end
