@@ -4,19 +4,18 @@ class Loan < ApplicationRecord
   before_create :set_amount
 
   def set_amount
-    self.amount = self.interest_on_loan_per_month > 0.00 ? (((self.loan_period_in_months * self.interest_on_loan_per_month) / 100) *  self.principal) + self.principal : self.principal
+    self.amount = interest_on_loan_per_month > 0.00 ? (((loan_period_in_months * interest_on_loan_per_month) / 100) * principal) + principal : principal
   end
 
   def details
-    "#{self.payment_cadence} Payments @ #{self.interest_on_loan_per_month}% per month for #{self.loan_period_in_months} months"
+    "#{payment_cadence} Payments @ #{interest_on_loan_per_month}% per month for #{loan_period_in_months} months"
   end
 
   def loan_summary
-    principal = self.amount
-    interest = self.interest_on_loan_per_month * interest_on_loan_per_month
-    simple_interest = principal * (interest/100)
+    interest = interest_on_loan_per_month * interest_on_loan_per_month
+    simple_interest = principal * (interest / 100)
     amount_expected = principal + simple_interest
-    total_loan_payments = LoanPayment.where(loan_id: self.id).sum(:amount)
+    total_loan_payments = loan_payments.sum(:amount)
 
     {
       principal: principal,
@@ -29,7 +28,7 @@ class Loan < ApplicationRecord
   end
 
   def profit
-    set_amount - self.principal
+    set_amount - principal
   end
   
 end

@@ -7,7 +7,7 @@
 
   <input id="myInputTextFielddddd" type="text" class="form-control" placeholder="Search Debtors"><br /><br />
 
-
+   <%= Loan.all.map { |l| l.loan_summary[:amount_remaining].to_i }.reduce(0, :+)%>
 
   <table id="loans-table" class="table">
     <thead>
@@ -28,9 +28,9 @@
             <tr>
                 <td><%= loan.loaner.full_name %></td>
                 <td><%= loan.loaner.phone_number %></td>
-                <td><%= loan.amount %></td>
+                <td><%= loan.set_amount %></td>
                 <td><%= loan.loan_payments.sum(:amount) %></td>
-                <td><%= loan.amount - loan.loan_payments.sum(:amount) %></td>
+                <td><%= loan.set_amount - loan.loan_payments.sum(:amount) %></td>
                 <td>
                     <a href=<%= "/loan_payments/new?loan=#{loan.id}&loaner=#{loan.loaner_id}"%> class="btn btn-success btn-sm text-white">Add/View Loan Payments</a>
                 </td>
