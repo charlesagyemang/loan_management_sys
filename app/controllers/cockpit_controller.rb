@@ -1,7 +1,7 @@
 class CockpitController < ApplicationController
   layout 'dashboard'
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except => [:user]
 
   def admin
     @loans_count = Loan.count
