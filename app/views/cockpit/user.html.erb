@@ -1,13 +1,11 @@
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
 
-  <h1>Debtors</h1>
+  <h1>Total Debtors GHC <%= Loan.all.map { |l| l.loan_summary[:amount_remaining].to_i }.reduce(0, :+)%></h1>
 
   <br />
 
   <input id="myInputTextFielddddd" type="text" class="form-control" placeholder="Search Debtors"><br /><br />
-
-   <%= Loan.all.map { |l| l.loan_summary[:amount_remaining].to_i }.reduce(0, :+)%>
 
   <table id="loans-table" class="table">
     <thead>
@@ -28,7 +26,7 @@
             <tr>
                 <td><%= loan.loaner.full_name %></td>
                 <td><%= loan.loaner.phone_number %></td>
-                <td><%= loan.set_amount %></td>
+                <td><%= loan.loan_summary[:amount_expected] %></td>
                 <td><%= loan.loan_payments.sum(:amount) %></td>
                 <td><%= loan.set_amount - loan.loan_payments.sum(:amount) %></td>
                 <td>

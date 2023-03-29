@@ -12,7 +12,7 @@ class Loan < ApplicationRecord
   end
 
   def loan_summary
-    interest = interest_on_loan_per_month * interest_on_loan_per_month
+    interest = interest_on_loan_per_month * loan_period_in_months
     simple_interest = principal * (interest / 100)
     amount_expected = principal + simple_interest
     total_loan_payments = loan_payments.sum(:amount)
